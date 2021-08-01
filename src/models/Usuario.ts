@@ -1,0 +1,33 @@
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+
+@Entity("usuarios")
+class Usuario {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
+    nome: string;
+
+    @Column()
+    cpf: string;
+
+    @Column()
+    senha: string;
+
+    @Column()
+    email: string;
+
+    @Column()
+    telefone: string;
+
+    @Column()
+    endereco: string;
+
+    @Column()
+    tipo: number;
+
+    @Column()
+    prioridade_doacao: number;
+}
+
+export { Usuario };

@@ -1,0 +1,27 @@
+import express, { NextFunction, Request, Response } from 'express';
+import { router } from './routes';
+import { AppError } from './errors/AppError';
+import config from './config';
+import 'reflect-metadata';
+import "express-async-errors";
+import { createConnection } from 'typeorm';
+
+createConnection();
+
+const app = express();
+
+app.use(express.json());
+app.use(router);
+
+app.use((err: Error, request: Request, response: Response, _next: NextFunction) => {
+    if (err instanceof AppError) {
+        return response.status(err.codigo).json(err)
+    }
+
+    return response.status(500).json(new AppError(`Erro interno do servidor - ${err.message}`, 500))
+})
+
+app.listen(config.port || 8080, () => console.log(`Servidor rodando na porta ${config.port}`));
+
+
+export { app };
