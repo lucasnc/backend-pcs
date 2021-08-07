@@ -4,6 +4,7 @@
   "description": "Doar Faz Bem: Aplicativo que gerencia doações para pessoas carentes",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc --project ./",
     "start": "node --optimize_for_size --max_old_space_size=460 --gc_interval=100 dist/server.js",
     "dev": "set NODE_ENV=dev&&ts-node-dev --transpile-only --ignore-watch node_modules src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",

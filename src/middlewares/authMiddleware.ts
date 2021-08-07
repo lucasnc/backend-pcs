@@ -1,4 +1,4 @@
-import { AppError } from './../errors/AppError';
+import { AppError } from '../models/AppError';
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config'
@@ -13,7 +13,7 @@ export default function authMiddleware(request: Request, response: Response, nex
     const { authorization } = request.headers;
 
     if (!authorization) {
-        return response.sendStatus(401);
+        return response.status(401).json(new AppError('Token não encontrado', 401))
     }
 
     const token = authorization.replace('Bearer', '').trim();
@@ -27,6 +27,6 @@ export default function authMiddleware(request: Request, response: Response, nex
 
         return next();
     } catch {
-        return response.sendStatus(401);
+        return response.status(401).json(new AppError('Sem autorização', 401))
     }
 }

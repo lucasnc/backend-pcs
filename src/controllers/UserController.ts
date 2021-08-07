@@ -1,3 +1,4 @@
+import { AppError } from './../models/AppError';
 import { getCustomRepository } from 'typeorm';
 import { Request, Response, NextFunction } from 'express';
 import { UserRepository } from '../repositories/UserRepository';
@@ -12,7 +13,7 @@ class UserController {
 
             const auth = await AuthService.authenticate(cpf, senha)
 
-            delete auth.user.senha
+            delete auth.usuario.senha
 
             return response.status(200).json(auth)
         } catch (err) {
@@ -27,10 +28,9 @@ class UserController {
             const senha = user.senha
 
             const register = await AuthService.register(user)
-
             const auth = await AuthService.authenticate(register.cpf, senha)
 
-            delete auth.user.senha
+            delete auth.usuario.senha
 
             return response.status(200).json(auth)
         } catch (err) {
@@ -38,14 +38,51 @@ class UserController {
         }
     }
 
-    async getAll(request: Request, response: Response) {
+    async getById(request: Request, response: Response, next: NextFunction) {
+        try {
+            const id = Number(request.params.id)
+            const usersRepository = getCustomRepository(UserRepository);
 
-        const usersRepository = getCustomRepository(UserRepository);
+            const user = await usersRepository.findOne(id);
+            if (!user) {
+                throw new AppError("Usuário não encontrado")
+            }
+            delete user.senha
 
-        const all = await usersRepository.find();
+            return response.json(user);
+        } catch (err) {
+            next(err)
+        }
+    }
 
-        return response.json(all);
+    async deleteById(request: Request, response: Response, next: NextFunction) {
+        try {
+            const id = Number(request.params.id)
+            const usersRepository = getCustomRepository(UserRepository);
 
+            const user = await usersRepository.findOne(id);
+            if (!user) {
+                throw new AppError("Usuário não encontrado")
+            }
+            await usersRepository.remove(user);
+
+            return response.sendStatus(204);
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    async update(request: Request, response: Response, next: NextFunction) {
+        try {
+            const user = request.body as Usuario;
+
+            const userUpdate = await AuthService.update(user);
+            delete userUpdate.senha
+
+            return response.json(userUpdate);
+        } catch (err) {
+            next(err)
+        }
     }
 }
 

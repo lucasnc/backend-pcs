@@ -9,3 +9,4 @@ export default async (): Promise<Connection> => {
 }
 
 // npm run typeorm migration:generate -- -n <nome-migration>
+// npm run typeorm migration:run

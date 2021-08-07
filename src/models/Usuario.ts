@@ -27,7 +27,7 @@ class Usuario {
     tipo: number;
 
     @Column()
-    prioridade_doacao: number;
+    tipo_doacao: string;
 }
 
 export { Usuario };

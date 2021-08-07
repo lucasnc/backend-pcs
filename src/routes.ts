@@ -8,6 +8,8 @@ const userController = new UserController();
 
 router.post("/usuarios", userController.register);
 router.post("/login", userController.login);
-router.get("/usuarios", authMiddleware, userController.getAll);
+router.put("/usuarios", userController.update);
+router.get("/usuarios/:id", authMiddleware, userController.getById);
+router.delete("/usuarios/:id", authMiddleware, userController.deleteById);
 
 export { router };
