@@ -8,7 +8,8 @@ const userController = new UserController();
 
 router.post("/usuarios", userController.register);
 router.post("/login", userController.login);
-router.put("/usuarios", userController.update);
+router.post("/logout", userController.logout);
+router.put("/usuarios", authMiddleware, userController.update);
 router.get("/usuarios/:id", authMiddleware, userController.getById);
 router.delete("/usuarios/:id", authMiddleware, userController.deleteById);
 

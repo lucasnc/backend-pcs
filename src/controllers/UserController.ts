@@ -84,6 +84,14 @@ class UserController {
             next(err)
         }
     }
+
+    async logout(request: Request, response: Response, next: NextFunction) {
+        try {
+            return response.sendStatus(204);
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 export { UserController };

@@ -20,7 +20,9 @@ class Usuario {
     @Column()
     telefone: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     endereco: string;
 
     @Column()
