@@ -27,9 +27,6 @@ class Usuario {
 
     @Column()
     tipo: number;
-
-    @Column()
-    tipo_doacao: string;
 }
 
 export { Usuario };

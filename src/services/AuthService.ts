@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 import { AppError } from '../models/AppError';
 import { getCustomRepository, Not } from 'typeorm';
-import { UserRepository } from '../repositories/UserRepository';
+import { UserRepository } from '../repositories/UsuarioRepository';
 import { Usuario } from '../models/Usuario';
 import { notEqual } from 'assert';
 

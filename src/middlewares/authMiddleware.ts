@@ -10,16 +10,14 @@ interface Token {
 }
 
 export default function authMiddleware(request: Request, response: Response, next: NextFunction) {
-    const { authorization } = request.headers;
+    const { token } = request.headers;
 
-    if (!authorization) {
+    if (!token) {
         return response.status(401).json(new AppError('Token não encontrado', 401))
     }
 
-    const token = authorization.replace('Bearer', '').trim();
-
     try {
-        const data = jwt.verify(token, config.secretKey);
+        const data = jwt.verify(String(token), config.secretKey);
 
         const { id } = data as Token;
 

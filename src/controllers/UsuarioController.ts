@@ -1,7 +1,7 @@
-import { AppError } from './../models/AppError';
+import { AppError } from '../models/AppError';
 import { getCustomRepository } from 'typeorm';
 import { Request, Response, NextFunction } from 'express';
-import { UserRepository } from '../repositories/UserRepository';
+import { UserRepository } from '../repositories/UsuarioRepository';
 import { Usuario } from '../models/Usuario';
 import AuthService from '../services/AuthService';
 
