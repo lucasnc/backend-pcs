@@ -3,7 +3,7 @@ import { router } from './routes';
 import { AppError } from './models/AppError';
 import config from './config';
 import 'reflect-metadata';
-import "express-async-errors";
+import 'express-async-errors';
 import { createConnection } from 'typeorm';
 import cors from 'cors';
 

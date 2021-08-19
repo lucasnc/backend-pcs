@@ -10,7 +10,7 @@ class Doacao {
     tipo_doacao: string;
 
     @Column()
-    data: Date;
+    data: string;
 
     @Column()
     local: string;
@@ -22,14 +22,11 @@ class Doacao {
     @JoinColumn({ name: "doadorId" })
     doador: Usuario
 
-    @Column({
-        nullable: true
-    })
-    receptorId: number;
+    @Column()
+    quantidade_total: number;
 
-    @ManyToOne(() => Usuario)
-    @JoinColumn({ name: "receptorId" })
-    receptor: Usuario
+    @Column()
+    quantidade_restante: number;
 
 }
 
