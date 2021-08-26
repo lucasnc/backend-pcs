@@ -31,11 +31,11 @@ class UserController {
             const senha = user.senha
 
             const register = await AuthService.register(user)
-            const auth = await AuthService.authenticate(register.cpf, senha)
+            //const auth = await AuthService.authenticate(register.cpf, senha)
 
-            delete auth.usuario.senha
+            delete register.senha
 
-            return response.status(200).json(auth)
+            return response.status(200).json(register)
         } catch (err) {
             next(err)
         }
