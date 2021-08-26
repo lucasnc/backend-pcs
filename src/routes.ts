@@ -14,7 +14,9 @@ router.post("/usuarios", userController.register);
 router.post("/login", userController.login);
 router.post("/logout", authMiddleware, userController.logout);
 router.put("/usuarios", authMiddleware, userController.update);
+router.get("/usuarios", authMiddleware, userController.getAll);
 router.get("/usuarios/:id", authMiddleware, userController.getById);
+router.delete("/usuarios/fila", authMiddleware, userController.fila);
 router.delete("/usuarios/:id", authMiddleware, userController.deleteById);
 
 router.post("/doacoes", authMiddleware, doacaoController.store);
@@ -27,6 +29,8 @@ router.post("/solicitacoes", authMiddleware, solicitacaoController.store);
 router.put("/solicitacoes", authMiddleware, solicitacaoController.update);
 router.get("/solicitacoes/:id", authMiddleware, solicitacaoController.getById);
 router.get("/usuarios/:userId/solicitacoes", authMiddleware, solicitacaoController.getSolicitacoesByUserId);
+router.get("/solicitacoes/:solicitacaoId/disponibilidade", authMiddleware, solicitacaoController.availability);
+router.get("/solicitacoes", authMiddleware, solicitacaoController.getAll);
 router.delete("/solicitacoes/:id", authMiddleware, solicitacaoController.deleteById);
 
 export { router };

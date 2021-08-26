@@ -1,9 +1,10 @@
 import { AppError } from '../models/AppError';
 import { getCustomRepository } from 'typeorm';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, response } from 'express';
 import { UserRepository } from '../repositories/UsuarioRepository';
 import { Usuario } from '../models/Usuario';
 import AuthService from '../services/AuthService';
+import FilaService from '../services/FilaService';
 
 class UserController {
 
@@ -55,6 +56,18 @@ class UserController {
         }
     }
 
+    async getAll(request: Request, response: Response, next: NextFunction) {
+        try {
+            const usersRepository = getCustomRepository(UserRepository);
+
+            const users = await usersRepository.find();
+
+            return response.json(users);
+        } catch (err) {
+            next(err)
+        }
+    }
+
     async deleteById(request: Request, response: Response, next: NextFunction) {
         try {
             const id = Number(request.params.id)
@@ -88,6 +101,17 @@ class UserController {
     async logout(request: Request, response: Response, next: NextFunction) {
         try {
             return response.sendStatus(204);
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    async fila(request: Request, response: Response, next: NextFunction) {
+        try {
+            const fila = await FilaService.display();
+
+            return response.json(fila);
+
         } catch (err) {
             next(err)
         }

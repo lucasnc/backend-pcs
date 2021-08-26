@@ -92,8 +92,6 @@ class DoacaoController {
             next(err)
         }
     }
-
-
 }
 
 export { DoacaoController };
