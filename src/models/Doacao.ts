@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
+import { Solicitacao } from "./Solicitacao";
 import { Usuario } from "./Usuario";
 
 @Entity("doacoes")
@@ -18,7 +19,9 @@ class Doacao {
     @Column()
     doadorId: number;
 
-    @ManyToOne(() => Usuario)
+    @ManyToOne(() => Usuario, {
+        onDelete: 'CASCADE'
+    })
     @JoinColumn({ name: "doadorId" })
     doador: Usuario
 
@@ -27,6 +30,11 @@ class Doacao {
 
     @Column()
     quantidade_restante: number;
+
+    @OneToMany(() => Solicitacao, (solicitacao) => solicitacao.doacao, {
+        cascade: true,
+    })
+    solicitacao?: Solicitacao[]
 
 }
 

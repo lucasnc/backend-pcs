@@ -67,7 +67,11 @@ class AuthService {
             throw new AppError("CPF já cadastrado")
         }
 
-        user.senha = bcrypt.hashSync(user.senha, 10)
+        if (user.senha)
+            user.senha = bcrypt.hashSync(user.senha, 10)
+        else
+            user.senha = result.senha
+
 
         return await usersRepository.save(user)
 

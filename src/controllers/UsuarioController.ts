@@ -62,6 +62,8 @@ class UserController {
 
             const users = await usersRepository.find();
 
+            users.forEach(u => delete u.senha)
+
             return response.json(users);
         } catch (err) {
             next(err)

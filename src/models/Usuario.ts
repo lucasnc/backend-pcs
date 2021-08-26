@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Doacao } from "./Doacao";
+import { Solicitacao } from "./Solicitacao";
 
 @Entity("usuarios")
 class Usuario {
@@ -27,6 +29,16 @@ class Usuario {
 
     @Column()
     tipo: number;
+
+    @OneToMany(() => Solicitacao, (solicitacao) => solicitacao.receptor, {
+        cascade: true,
+    })
+    solicitacao?: Solicitacao[]
+
+    @OneToMany(() => Doacao, (doacao) => doacao.doador, {
+        cascade: true,
+    })
+    doacao?: Doacao[]
 }
 
 export { Usuario };

@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { Doacao } from "./Doacao";
+import { Fila } from "./Fila";
 import { Usuario } from "./Usuario";
 
 @Entity("solicitacoes")
@@ -19,7 +20,9 @@ class Solicitacao {
     @Column()
     receptorId: number;
 
-    @ManyToOne(() => Usuario)
+    @ManyToOne(() => Usuario, {
+        onDelete: 'CASCADE'
+    })
     @JoinColumn({ name: "receptorId" })
     receptor: Usuario
 
@@ -28,9 +31,16 @@ class Solicitacao {
     })
     doacaoId: number;
 
-    @ManyToOne(() => Doacao)
+    @ManyToOne(() => Doacao, {
+        onDelete: 'CASCADE'
+    })
     @JoinColumn({ name: "doacaoId" })
     doacao: Doacao
+
+    @OneToMany(() => Fila, (fila) => fila.solicitacao, {
+        cascade: true,
+    })
+    fila?: Fila[]
 }
 
 export { Solicitacao };

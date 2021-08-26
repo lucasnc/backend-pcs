@@ -13,10 +13,10 @@ const solicitacaoController = new SolicitacaoController();
 router.post("/usuarios", userController.register);
 router.post("/login", userController.login);
 router.post("/logout", authMiddleware, userController.logout);
+router.get("/usuarios/fila", authMiddleware, userController.fila);
 router.put("/usuarios", authMiddleware, userController.update);
 router.get("/usuarios", authMiddleware, userController.getAll);
 router.get("/usuarios/:id", authMiddleware, userController.getById);
-router.delete("/usuarios/fila", authMiddleware, userController.fila);
 router.delete("/usuarios/:id", authMiddleware, userController.deleteById);
 
 router.post("/doacoes", authMiddleware, doacaoController.store);

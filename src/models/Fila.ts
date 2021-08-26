@@ -13,9 +13,11 @@ class Fila {
     @Column()
     solicitacaoId: number;
 
-    @ManyToOne(() => Solicitacao)
+    @ManyToOne(() => Solicitacao, {
+        onDelete: 'CASCADE'
+    })
     @JoinColumn({ name: "solicitacaoId" })
-    solicitacao: Usuario
+    solicitacao: Solicitacao
 
     constructor(solicitacaoId: number) {
         this.solicitacaoId = solicitacaoId
