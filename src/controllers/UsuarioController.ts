@@ -5,6 +5,8 @@ import { UserRepository } from '../repositories/UsuarioRepository';
 import { Usuario } from '../models/Usuario';
 import AuthService from '../services/AuthService';
 import FilaService from '../services/FilaService';
+import { SolicitacaoRepository } from '../repositories/SolicitacaoRepository';
+import { Fila } from '../models/Fila';
 
 class UserController {
 
@@ -110,9 +112,20 @@ class UserController {
 
     async fila(request: Request, response: Response, next: NextFunction) {
         try {
-            const fila = await FilaService.display();
 
-            return response.json(fila);
+            const fila = await FilaService.display();
+            let users: Usuario[] = []
+            const usersRepository = getCustomRepository(UserRepository);
+            const solicitacaoRepository = getCustomRepository(SolicitacaoRepository);
+
+            for (let f of fila) {
+                console.log(f)
+                let solicitacao = await solicitacaoRepository.findOne(f.solicitacaoId)
+                let user = await usersRepository.findOne(solicitacao.receptorId)
+                users.push(user)
+                users.forEach(u => delete u.senha)
+            }
+            return response.json(users);
 
         } catch (err) {
             next(err)
