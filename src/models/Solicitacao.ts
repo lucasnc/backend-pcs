@@ -15,7 +15,7 @@ class Solicitacao {
     data: string;
 
     @Column()
-    status: number;
+    status: boolean;
 
     @Column()
     receptorId: number;
